@@ -1,28 +1,43 @@
 <template>
-    <div>
+<form @submit.prevent ="submitForm">
+
+    <div class="form-group">
         <h1>The User Page</h1>
         <hr>
-        <input  v-model="value"/>
+        <input  v-model="value"
+        type="number"
+        min="0"
+        max="10"
+        required/>
         <button
         class="btn btn-success"
-        v-on:click = "changeInputValue">Save</button>
+        >Save</button>
     </div>
+</form>
 </template>
 
 <script>
 export default {
   name: 'User',
+  data() {
+    return {
+      form:{
+        value: null
+      }
+    }
+  },
   mounted() {
     if (localStorage.value) {
       this.value = localStorage.value;
     }
   },
   methods: {
-    changeInputValue(){
-      localStorage.value = this.$store.state.value
+    submitForm(){
+      window.console.log(this.form)
+      this.changeInputValue()
     },
-    qwert(){
-      window.console.log(this.value)
+    changeInputValue(){
+      localStorage.value = this.$store.state.value;
     }
   },
   computed: {
